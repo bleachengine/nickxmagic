@@ -1,15 +1,15 @@
 "use client"
 
 import { useState } from "react"
-import { X, Send, Mail, Phone, Instagram } from "lucide-react"
+import { X, Send, Mail, Phone } from "lucide-react"
 import { useBooking } from "@/components/booking-context"
 
 const initialFormValues = {
-  name: "",
+  fullName: "",
   email: "",
+  phoneNumber: "",
   eventType: "",
-  date: "",
-  message: "",
+  eventDate: "",
 }
 
 export function BookingModal() {
@@ -34,8 +34,8 @@ export function BookingModal() {
   }
 
   return (
-    <div className="fixed inset-0 z-[60] flex items-center justify-center bg-background/95 p-4 backdrop-blur-sm md:p-6">
-      <div className="relative max-h-[90vh] w-full max-w-5xl overflow-y-auto border border-border bg-background p-6 md:p-8">
+    <div className="fixed inset-0 z-[60] flex items-center justify-center bg-background/95 p-3 backdrop-blur-sm md:p-5">
+      <div className="relative max-h-[84vh] w-full max-w-[900px] overflow-y-auto border border-border bg-background p-4 sm:p-5 md:p-4">
         <button
           onClick={closeBookingModal}
           className="absolute right-4 top-4 text-muted-foreground transition-colors hover:text-foreground"
@@ -44,48 +44,44 @@ export function BookingModal() {
           <X className="h-6 w-6" />
         </button>
 
-        <div className="mb-12 text-center">
-          <p className="mb-3 text-xs uppercase tracking-[0.3em] text-primary">
-            Get in Touch
-          </p>
-          <h2 className="font-serif text-3xl font-bold md:text-5xl">
+        <div className="mb-5 text-center sm:mb-6">
+          <h2 className="font-serif text-2xl font-bold sm:text-3xl md:text-[25px]">
             <span className="text-foreground">Book Your </span>
             <span className="text-primary">Experience</span>
           </h2>
-          <p className="mx-auto mt-4 max-w-lg text-muted-foreground">
-            Ready to make your next event unforgettable? Fill out the form below
-            and NickXmagic will be in touch within 24 hours.
+          <p className="mx-auto mt-2 max-w-lg text-sm leading-relaxed text-muted-foreground sm:text-sm">
+            Ready to make your next event unforgettable? Fill out the form below.
           </p>
         </div>
 
-        <div className="flex flex-col gap-16 lg:flex-row">
+        <div className="flex flex-col gap-6 lg:grid lg:grid-cols-[minmax(0,480px)_220px] lg:items-center lg:justify-center lg:gap-14">
           <div className="flex-1">
-            <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-              <div className="flex flex-col gap-6 sm:flex-row">
-                <div className="flex-1">
-                  <label
-                    htmlFor="name"
-                    className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground"
-                  >
-                    Full Name
-                  </label>
-                  <input
-                    id="name"
-                    type="text"
-                    required
-                    value={formValues.name}
-                    onChange={(event) =>
-                      handleFieldChange("name", event.target.value)
-                    }
-                    className="w-full border border-border bg-card px-4 py-3 text-foreground placeholder:text-muted-foreground/50 focus:border-primary focus:outline-none"
-                    placeholder="John Doe"
-                  />
-                </div>
+            <form onSubmit={handleSubmit} className="mx-auto flex w-full max-w-[480px] flex-col gap-3 lg:mx-0">
+              <div>
+                <label
+                  htmlFor="fullName"
+                  className="mb-2 block text-[10px] uppercase tracking-widest text-muted-foreground"
+                >
+                  Full Name
+                </label>
+                <input
+                  id="fullName"
+                  type="text"
+                  required
+                  value={formValues.fullName}
+                  onChange={(event) =>
+                    handleFieldChange("fullName", event.target.value)
+                  }
+                  className="w-full border border-border bg-card px-4 py-2 text-foreground placeholder:text-muted-foreground/50 focus:border-primary focus:outline-none"
+                  placeholder="John Doe"
+                />
+              </div>
 
-                <div className="flex-1">
+              <div className="grid gap-4 md:grid-cols-2">
+                <div>
                   <label
                     htmlFor="email"
-                    className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground"
+                    className="mb-2 block text-[10px] uppercase tracking-widest text-muted-foreground"
                   >
                     Email Address
                   </label>
@@ -97,17 +93,37 @@ export function BookingModal() {
                     onChange={(event) =>
                       handleFieldChange("email", event.target.value)
                     }
-                    className="w-full border border-border bg-card px-4 py-3 text-foreground placeholder:text-muted-foreground/50 focus:border-primary focus:outline-none"
+                    className="w-full border border-border bg-card px-4 py-2 text-foreground placeholder:text-muted-foreground/50 focus:border-primary focus:outline-none"
                     placeholder="john@example.com"
+                  />
+                </div>
+
+                <div>
+                  <label
+                    htmlFor="phoneNumber"
+                    className="mb-2 block text-[10px] uppercase tracking-widest text-muted-foreground"
+                  >
+                    Phone Number
+                  </label>
+                  <input
+                    id="phoneNumber"
+                    type="tel"
+                    required
+                    value={formValues.phoneNumber}
+                    onChange={(event) =>
+                      handleFieldChange("phoneNumber", event.target.value)
+                    }
+                    className="w-full border border-border bg-card px-4 py-2 text-foreground placeholder:text-muted-foreground/50 focus:border-primary focus:outline-none"
+                    placeholder="9876543210"
                   />
                 </div>
               </div>
 
-              <div className="flex flex-col gap-6 sm:flex-row">
-                <div className="flex-1">
+              <div className="grid gap-4 md:grid-cols-2">
+                <div>
                   <label
                     htmlFor="eventType"
-                    className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground"
+                    className="mb-2 block text-[10px] uppercase tracking-widest text-muted-foreground"
                   >
                     Event Type
                   </label>
@@ -117,7 +133,7 @@ export function BookingModal() {
                     onChange={(event) =>
                       handleFieldChange("eventType", event.target.value)
                     }
-                    className="w-full border border-border bg-card px-4 py-3 text-foreground focus:border-primary focus:outline-none"
+                    className="w-full border border-border bg-card px-4 py-2 text-foreground focus:border-primary focus:outline-none"
                   >
                     <option value="" className="bg-card text-muted-foreground">
                       Select an event type
@@ -128,11 +144,17 @@ export function BookingModal() {
                     <option value="wedding" className="bg-card">
                       Wedding
                     </option>
-                    <option value="private" className="bg-card">
+                    <option value="birthday" className="bg-card">
+                      Birthday
+                    </option>
+                    <option value="destination-wedding" className="bg-card">
+                      Destination Wedding
+                    </option>
+                    <option value="private-party" className="bg-card">
                       Private Party
                     </option>
-                    <option value="theatre" className="bg-card">
-                      Theatre / Stage Show
+                    <option value="stage-show" className="bg-card">
+                      Stage Show
                     </option>
                     <option value="other" className="bg-card">
                       Other
@@ -140,42 +162,24 @@ export function BookingModal() {
                   </select>
                 </div>
 
-                <div className="flex-1">
+                <div>
                   <label
-                    htmlFor="date"
-                    className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground"
+                    htmlFor="eventDate"
+                    className="mb-2 block text-[10px] uppercase tracking-widest text-muted-foreground"
                   >
                     Event Date
                   </label>
                   <input
-                    id="date"
+                    id="eventDate"
                     type="date"
-                    value={formValues.date}
+                    required
+                    value={formValues.eventDate}
                     onChange={(event) =>
-                      handleFieldChange("date", event.target.value)
+                      handleFieldChange("eventDate", event.target.value)
                     }
-                    className="w-full border border-border bg-card px-4 py-3 text-foreground focus:border-primary focus:outline-none"
+                    className="w-full border border-border bg-card px-4 py-2 text-foreground focus:border-primary focus:outline-none"
                   />
                 </div>
-              </div>
-
-              <div>
-                <label
-                  htmlFor="message"
-                  className="mb-2 block text-xs uppercase tracking-widest text-muted-foreground"
-                >
-                  Tell Us About Your Event
-                </label>
-                <textarea
-                  id="message"
-                  rows={5}
-                  value={formValues.message}
-                  onChange={(event) =>
-                    handleFieldChange("message", event.target.value)
-                  }
-                  className="w-full resize-none border border-border bg-card px-4 py-3 text-foreground placeholder:text-muted-foreground/50 focus:border-primary focus:outline-none"
-                  placeholder="Tell us about your event, the number of guests, and any special requests..."
-                />
               </div>
 
               <button
@@ -185,60 +189,44 @@ export function BookingModal() {
                 <span>Send Inquiry</span>
                 <Send className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </button>
+
+              <p className="text-center text-[11px] leading-relaxed text-muted-foreground">
+                All inquiries receive a personal response within 24 hours.
+                <br />
+                For urgent bookings, please call directly.
+              </p>
             </form>
           </div>
 
-          <div className="lg:w-80">
-            <div className="flex flex-col gap-8">
+          <div className="lg:w-[220px] lg:self-center">
+            <div className="flex flex-col gap-5">
               <div>
                 <h3 className="mb-4 font-serif text-xl font-semibold text-foreground">
                   Direct Contact
                 </h3>
                 <div className="flex flex-col gap-4">
                   <a
-                    href="mailto:book@nickxmagic.com"
-                    className="flex items-center gap-3 text-muted-foreground transition-colors hover:text-primary"
+                    href="mailto:magic.nickvats@gmail.com"
+                    className="flex items-center gap-3 break-all text-muted-foreground transition-colors hover:text-primary"
                   >
                     <Mail className="h-4 w-4 text-primary" />
-                    <span className="text-sm">book@nickxmagic.com</span>
+                    <span className="text-sm">magic.nickvats@gmail.com</span>
                   </a>
                   <a
-                    href="tel:+1234567890"
+                    href="tel:+919999596739"
                     className="flex items-center gap-3 text-muted-foreground transition-colors hover:text-primary"
                   >
                     <Phone className="h-4 w-4 text-primary" />
-                    <span className="text-sm">+1 (234) 567-890</span>
+                    <span className="text-sm">+91 9999596739</span>
                   </a>
                   <a
-                    href="https://instagram.com/nickxmagic"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href="tel:+919015240483"
                     className="flex items-center gap-3 text-muted-foreground transition-colors hover:text-primary"
                   >
-                    <Instagram className="h-4 w-4 text-primary" />
-                    <span className="text-sm">@nickxmagic</span>
+                    <Phone className="h-4 w-4 text-primary" />
+                    <span className="text-sm">+91 9015240483</span>
                   </a>
                 </div>
-              </div>
-
-              <div className="border-t border-border pt-8">
-                <h3 className="mb-4 font-serif text-xl font-semibold text-foreground">
-                  Response Time
-                </h3>
-                <p className="text-sm leading-relaxed text-muted-foreground">
-                  All inquiries receive a personal response within 24 hours. For
-                  urgent bookings, please call directly.
-                </p>
-              </div>
-
-              <div className="border-t border-border pt-8">
-                <h3 className="mb-4 font-serif text-xl font-semibold text-foreground">
-                  Availability
-                </h3>
-                <p className="text-sm leading-relaxed text-muted-foreground">
-                  Currently booking events for 2026 and 2027. Early booking is
-                  recommended for peak season dates.
-                </p>
               </div>
             </div>
           </div>

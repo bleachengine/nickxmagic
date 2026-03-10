@@ -13,6 +13,7 @@ const pageLinks = [
   { href: "/performances", label: "Performances" },
   { href: "/events", label: "Events" },
   { href: "/gallery", label: "Gallery" },
+  { href: "/payments", label: "Payments" },
 ]
 
 export function Navigation() {

@@ -1,31 +1,46 @@
 import Link from "next/link"
-import { Instagram, Youtube, Facebook } from "lucide-react"
-
-const footerLinks = [
-  { href: "/about", label: "About" },
-  { href: "/shows", label: "Shows" },
-  { href: "/gallery", label: "Gallery" },
-]
+import Image from "next/image"
+import { Instagram, Youtube, Facebook, Mail, Phone } from "lucide-react"
 
 export function Footer() {
   return (
     <footer className="border-t border-border py-12">
-      <div className="mx-auto flex max-w-7xl flex-col items-center gap-8 px-6 md:flex-row md:justify-between">
-        <Link href="/" className="font-serif text-xl tracking-wide text-primary">
-          NickXmagic
+      <div className="mx-auto flex max-w-7xl flex-col items-center gap-8 px-6 text-center md:flex-row md:items-center md:justify-between md:text-center">
+        <Link href="/" className="flex items-center justify-center">
+          <Image
+            src="/logonxm.webp"
+            width={84}
+            height={84}
+            alt="NickXmagic logo"
+          />
         </Link>
 
-        <nav className="flex flex-wrap justify-center gap-6">
-          {footerLinks.map((footerLink) => (
-            <Link
-              key={footerLink.href}
-              href={footerLink.href}
-              className="text-xs uppercase tracking-widest text-muted-foreground transition-colors hover:text-primary"
-            >
-              {footerLink.label}
-            </Link>
-          ))}
-        </nav>
+        <div className="flex flex-col items-center gap-3 text-center">
+          <p className="text-[10px] uppercase tracking-[0.24em] text-primary">
+            Contact Us
+          </p>
+          <a
+            href="tel:+919999596739"
+            className="flex items-center gap-2 text-[13px] text-muted-foreground transition-colors hover:text-primary"
+          >
+            <Phone className="h-4 w-4 text-primary" />
+            <span>+91 9999596739</span>
+          </a>
+          <a
+            href="tel:+919015240483"
+            className="flex items-center gap-2 text-[13px] text-muted-foreground transition-colors hover:text-primary"
+          >
+            <Phone className="h-4 w-4 text-primary" />
+            <span>+91 9015240483</span>
+          </a>
+          <a
+            href="mailto:magic.nickvats@gmail.com"
+            className="flex items-center gap-2 break-all text-[13px] text-muted-foreground transition-colors hover:text-primary"
+          >
+            <Mail className="h-4 w-4 text-primary" />
+            <span>magic.nickvats@gmail.com</span>
+          </a>
+        </div>
 
         <div className="flex gap-4">
           {[
