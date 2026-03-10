@@ -48,17 +48,7 @@ export function HeroSection() {
         />
       </div>
 
-      <div className="absolute inset-0">
-        {/* <Image
-          src="/images/hero-bg.jpg"
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="h-full w-full object-cover object-top opacity-70 md:object-[center_8%]"
-        /> */}
-
-       
+      <div className="absolute inset-0">      
       <video
         autoPlay
         loop
@@ -66,7 +56,7 @@ export function HeroSection() {
         playsInline
         className="h-full w-full object-cover object-top opacity-70 md:object-[center_8%]"
       >
-        <source src="/hero-video.mp4" type="video/mp4" />
+        <source src="images/hero-video.mp4" type="video/mp4" />
       </video>
         <div className="absolute inset-0 bg-background/60" />
       </div>

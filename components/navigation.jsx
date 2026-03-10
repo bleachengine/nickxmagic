@@ -43,7 +43,7 @@ export function Navigation() {
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         <Link href="/" className="font-serif text-2xl tracking-wide text-primary">
           {/* NickXmagic <WandSparkles className="h-6 w-6 inline" /> */}
-           <Image src="/logonxm.webp" width={80}  height={80}  alt="NickXmagic logo" />
+           <Image src="logos/logonxm.webp" width={80}  height={80}  alt="NickXmagic logo" />
         </Link>
 
         <div className="hidden items-center gap-8 md:flex">

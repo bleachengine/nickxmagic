@@ -15,6 +15,8 @@ const initialFormValues = {
 export function BookingModal() {
   const { isBookingOpen, closeBookingModal } = useBooking()
   const [formValues, setFormValues] = useState(initialFormValues)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submissionMessage, setSubmissionMessage] = useState("")
 
   const handleFieldChange = (fieldName, fieldValue) => {
     setFormValues((currentValues) => ({
@@ -23,10 +25,39 @@ export function BookingModal() {
     }))
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
-    closeBookingModal()
-    setFormValues(initialFormValues)
+    setIsSubmitting(true)
+    setSubmissionMessage("")
+
+    try {
+      const response = await fetch("https://formspree.io/f/xjgaygva", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          fullName: formValues.fullName,
+          email: formValues.email,
+          phoneNumber: formValues.phoneNumber,
+          eventType: formValues.eventType,
+          eventDate: formValues.eventDate,
+        }),
+      })
+
+      if (!response.ok) {
+        throw new Error("Form submission failed")
+      }
+
+      setSubmissionMessage("Response submitted. Thank you for your response.")
+      closeBookingModal()
+      setFormValues(initialFormValues)
+    } catch {
+      setSubmissionMessage("Unable to send inquiry right now. Please try again.")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   if (!isBookingOpen) {
@@ -66,6 +97,7 @@ export function BookingModal() {
                 </label>
                 <input
                   id="fullName"
+                  name="fullName"
                   type="text"
                   required
                   value={formValues.fullName}
@@ -87,6 +119,7 @@ export function BookingModal() {
                   </label>
                   <input
                     id="email"
+                    name="email"
                     type="email"
                     required
                     value={formValues.email}
@@ -107,6 +140,7 @@ export function BookingModal() {
                   </label>
                   <input
                     id="phoneNumber"
+                    name="phoneNumber"
                     type="tel"
                     required
                     value={formValues.phoneNumber}
@@ -129,6 +163,7 @@ export function BookingModal() {
                   </label>
                   <select
                     id="eventType"
+                    name="eventType"
                     value={formValues.eventType}
                     onChange={(event) =>
                       handleFieldChange("eventType", event.target.value)
@@ -171,6 +206,7 @@ export function BookingModal() {
                   </label>
                   <input
                     id="eventDate"
+                    name="eventDate"
                     type="date"
                     required
                     value={formValues.eventDate}
@@ -184,11 +220,18 @@ export function BookingModal() {
 
               <button
                 type="submit"
+                disabled={isSubmitting}
                 className="group flex items-center justify-center gap-2 border border-primary bg-primary px-8 py-3 text-sm uppercase tracking-widest text-primary-foreground transition-all hover:bg-transparent hover:text-primary"
               >
-                <span>Send Inquiry</span>
+                <span>{isSubmitting ? "Sending..." : "Send Inquiry"}</span>
                 <Send className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </button>
+
+              {submissionMessage ? (
+                <p className="text-center text-[11px] leading-relaxed text-muted-foreground">
+                  {submissionMessage}
+                </p>
+              ) : null}
 
               <p className="text-center text-[11px] leading-relaxed text-muted-foreground">
                 All inquiries receive a personal response within 24 hours.
